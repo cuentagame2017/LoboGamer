@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cuadro Comparativo - Modificaciones Reglamento Ley 32069</title>
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #003366 0%, #004c99 100%);
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #003366 0%, #004c99 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .info-bar {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .info-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .controls {
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #003366;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: 2px solid #003366;
+            background: white;
+            color: #003366;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #003366;
+            color: white;
+        }
+        
+        .btn.active {
+            background: #003366;
+            color: white;
+        }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #f5f5f5;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 3px solid #003366;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .articulo-col {
+            width: 10%;
+            font-weight: 600;
+            color: #003366;
+        }
+        
+        .modification-col {
+            width: 40%;
+            background: #fff5f5;
+        }
+        
+        .comment-col {
+            width: 50%;
+            background: #f9f9f9;
+        }
+        
+        .modification {
+            background: #ffe6e6;
+            color: #d32f2f;
+            padding: 12px;
+            border-left: 4px solid #d32f2f;
+            border-radius: 4px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        .highlight-red {
+            background: #ffcccc;
+            color: #d32f2f;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        
+        .comment {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .example {
+            background: #e8f4f8;
+            padding: 10px;
+            border-left: 3px solid #0288d1;
+            margin-top: 8px;
+            font-size: 12px;
+            border-radius: 3px;
+            color: #0276aa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .badge-segmentacion {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .badge-requerimiento {
+            background: #f3e5f5;
+            color: #6a1b9a;
+        }
+        
+        .badge-evaluacion {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .badge-ejecucion {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+        
+        .badge-procedimiento {
+            background: #fce4ec;
+            color: #880e4f;
+        }
+        
+        .legend {
+            padding: 20px 40px;
+            background: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .legend h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px 40px;
+            background: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #003366;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #003366;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            padding: 20px 40px;
+            background: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .info-bar, .controls {
+                padding: 15px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 12px;
+            }
+            
+            .modification-col {
+                width: 35%;
+            }
+            
+            .comment-col {
+                width: 55%;
+            }
+        }
+    
+
+/* Ajustes solicitados */
+.comment, .modification { text-align: justify; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 20px;">
+<div style="flex-shrink: 0; width: 100px; height: 80px; display: flex; align-items: center; justify-content: center;">
+<svg style="width: 100%; height: 100%;" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="snciGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0052CC;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#003366;stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#snciGrad)" height="120" opacity="0.2" rx="10" width="120" x="40" y="40"></rect>
+<rect fill="white" height="100" rx="3" width="30" x="50" y="50"></rect>
+<rect fill="white" height="100" rx="3" width="30" x="90" y="50"></rect>
+<rect fill="white" height="100" rx="3" width="30" x="130" y="50"></rect>
+<text fill="white" font-size="12" font-weight="bold" text-anchor="middle" x="100" y="170">SNCI</text>
+</svg>
+</div>
+<div style="text-align: center; flex: 1;">
+<h1 style="margin: 0;">Cuadro Comparativo de Modificaciones</h1>
+<p style="margin: 8px 0 0 0; font-size: 13px;">Reglamento de la Ley General de Contrataciones Públicas, Ley N° 32069.</p>
+</div>
+<div style="flex-shrink: 0; width: 100px; height: 80px; display: flex; align-items: center; justify-content: center;">
+<svg style="width: 100%; height: 100%;" viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="cjaGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#003366;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#004c99;stop-opacity:1"></stop>
+</lineargradient>
+</defs>
+<circle cx="100" cy="100" fill="none" r="90" stroke="white" stroke-width="2"></circle>
+<circle cx="100" cy="100" fill="none" opacity="0.7" r="70" stroke="white" stroke-width="1.5"></circle>
+<text fill="white" font-size="14" font-weight="bold" text-anchor="middle" x="100" y="105">CJA</text>
+<text fill="white" font-size="9" text-anchor="middle" x="100" y="140">ABOGADOS</text>
+</svg>
+</div>
+</div>
+<div style="text-align: center; padding-top: 10px; border-top: 2px solid rgba(255,255,255,0.3); font-size: 12px; font-weight: 500; opacity: 0.95;">
+<strong>Elaborado por Candela Jara Abogados &amp; Asociados</strong>
+</div>
+</div>
+<div class="info-bar">
+<div class="info-item">
+<div class="info-label">Norma</div>
+<div class="info-value">Decreto Supremo Nº 009-2025-EF</div>
+</div>
+<div class="info-item">
+<div class="info-label">Norma Modificatoria</div>
+<div class="info-value">Decreto Supremo Nº 001-2026-EF</div>
+</div>
+<div class="info-item">
+<div class="info-label">Publicación</div>
+<div class="info-value">08 de enero de 2026</div>
+</div>
+</div>
+<div class="controls">
+<div class="search-box">
+<input id="searchInput" placeholder="Buscar artículo, palabra clave o tema..." type="text"/>
+</div>
+<div class="filter-buttons">
+<button class="btn active" onclick="filterTable('all')">Todos</button>
+<button class="btn" onclick="filterTable('segmentacion')">Segmentación</button>
+<button class="btn" onclick="filterTable('ejecucion')">Ejecución</button>
+<button class="btn" onclick="filterTable('garantias')">Garantías</button>
+</div>
+</div>
+<div class="table-wrapper">
+<table id="dataTable">
+<thead>
+<tr>
+<th style="width: 10%;">ARTÍCULO</th>
+<th style="width: 40%;">MODIFICACIÓN <span style="color: #d32f2f;">(en rojo)</span></th>
+<th style="width: 50%;">COMENTARIO Y APLICACIÓN PRÁCTICA</th>
+</tr>
+</thead>
+<tbody>
+<tr data-category="general">
+<td class="articulo-col">Art. 15.1</td>
+<td class="modification-col">
+<div class="modification">
+ Los compradores públicos deben encontrarse <span class="highlight-red">certificados conforme a la Directiva que emita el OECE</span>.
+</div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Certificación</span>
+<div class="comment">Se establece como requisito obligatorio la certificación de compradores públicos según niveles: básico, intermedio y avanzado. Esto fortalece las capacidades técnicas de los funcionarios que intervienen en el proceso de contratación.</div>
+<div class="example"><strong>Ejemplo:</strong> Un comprador público de municipalidad debe estar certificado en nivel intermedio o avanzado para dirigir procedimientos de selección de alto valor.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 16</td>
+<td class="modification-col">
+<div class="modification">
+ Para certificarse se requiere <span class="highlight-red">mínimo: título profesional técnico o grado de bachiller universitario</span>. Certificación con niveles: básico, intermedio y avanzado.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Requisitos</span>
+<div class="comment">Se establecen criterios claros de competencia y niveles de certificación para los compradores públicos, mejorando la predictibilidad y agilidad en los procesos.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 17</td>
+<td class="modification-col">
+<div class="modification">
+ El OECE <span class="highlight-red">gestiona y publica el registro de compradores públicos</span> que incluye: certificación vigente, histórico de procesos participados y fase de participación.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Registro</span>
+<div class="comment">Crea transparencia y trazabilidad de los compradores públicos en el sistema. Permite a las entidades verificar la experiencia del personal de contrataciones.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 25.7</td>
+<td class="modification-col">
+<div class="modification">
+ Ejecutores de obra y consultores pueden acreditar experiencia de <span class="highlight-red">reorganización societaria</span>. OECE establece por directiva supuestos de excepción.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Experiencia</span>
+<div class="comment">Flexibiliza la acreditación de experiencia en procesos de reestructuración empresarial, permitiendo que empresas originarias de fusiones/escisiones demuestren trayectoria.</div>
+<div class="example"><strong>Ejemplo:</strong> Empresa constructora formada por fusión puede usar experiencia de ambas empresas previas para calificar.</div>
+</td>
+</tr>
+<tr data-category="segmentacion">
+<td class="articulo-col">Art. 37.3 b)</td>
+<td class="modification-col">
+<div class="modification">
+ Cumplimiento de plazos: se considera <span class="highlight-red">ratio de cumplimiento</span> teniendo en cuenta <span class="highlight-red">número de penalidades por mora respecto del número de contratos con conformidad</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Desempeño</span>
+<div class="comment">Mejora la metodología de evaluación del desempeño incorporando un indicador proporcional. Ya no es solo contar penalidades, sino la ratio respecto de contratos exitosos.</div>
+<div class="example"><strong>Ejemplo:</strong> Proveedor con 2 penalidades en 20 contratos = ratio 10% (mejor que 2 penalidades en 5 contratos = 40%).</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 40.4</td>
+<td class="modification-col">
+<div class="modification">
+ Entidad contratante <span class="highlight-red">puede inaplicar temporalmente impedimento para contrataciones complementarias</span> bajo condiciones del numeral 40.2.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Impedimentos</span>
+<div class="comment">Amplía los supuestos de excepción para los impedimentos en situaciones de complementariedad. Facilita la continuidad contractual cuando existe razón técnica válida.</div>
+<div class="example"><strong>Ejemplo:</strong> Contrato de obra que requiere actividades complementarias puede adjudicarse al mismo contratista superando impedimentos temporales.</div>
+</td>
+</tr>
+<tr data-category="segmentacion">
+<td class="articulo-col">Art. 42.2 y 42.3</td>
+<td class="modification-col">
+<div class="modification">
+ DEC informa clasificación en <span class="highlight-red">categorías y adjunta cronograma con fechas estimadas</span> para presentación de requerimientos. En contrataciones no programadas, <span class="highlight-red">segmentación ocurre tras recepción del requerimiento</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Planificación</span>
+<div class="comment">Optimiza la planificación con cronogramas explícitos y agiliza procesos no programados. Mejora la comunicación con áreas usuarias y predictibilidad de tiempos.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 43</td>
+<td class="modification-col">
+<div class="modification">
+ Entidad puede publicar <span class="highlight-red">anuncio de contratación futura</span> en Pladicop/sede digital <span class="highlight-red">previa a convocatoria</span>, con opción de reducir plazo conforme numeral 64.3.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Convocatoria</span>
+<div class="comment">Introduce anuncios anticipados para dar visibilidad temprana a proveedores. Facilita consulta de mercado y reduce tiempos de ejecución posteriores.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 46.1 j)</td>
+<td class="modification-col">
+<div class="modification">
+ En estrategia de contratación se analizan <span class="highlight-red">"Puntos no negociables del requerimiento durante la subetapa de negociación, de corresponder"</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Negociación</span>
+<div class="comment">Introduce concepto de límites claros en negociación. Permite que la entidad fije de antemano aspectos que no pueden cederse, dando certidumbre a proveedores.</div>
+<div class="example"><strong>Ejemplo:</strong> Especificaciones técnicas mínimas o plazos no negociables se comunican previamente a postores.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 51.1 y 51.3</td>
+<td class="modification-col">
+<div class="modification">
+ Difusión de requerimiento permite <span class="highlight-red">recibir retroalimentación técnica</span> de proveedores. Absolución en <span class="highlight-red">plazo máximo de 3 días hábiles</span> (modificado de 6 días).
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-requerimiento">Consulta de Mercado</span>
+<div class="comment">Acelera el proceso de consulta de mercado y mejora la interacción previa. Plazo más corto optimiza tiempos de actuaciones preparatorias.</div>
+</td>
+</tr>
+<tr data-category="segmentacion">
+<td class="articulo-col">Art. 52.1 b)</td>
+<td class="modification-col">
+<div class="modification">
+ Procedimiento según relación de ítems/lotes/tramos: <span class="highlight-red">cuantía individual debe ser superior al contrato menor</span>. Cada ítem es procedimiento independiente dentro del principal.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Agrupamiento</span>
+<div class="comment">Clarifica reglas de agrupamiento. Impide fraccionamiento al establecer piso de cuantía y reconoce independencia de cada lote.</div>
+<div class="example"><strong>Ejemplo:</strong> Licitación con 3 lotes: cada lote debe ser &gt; UIT para validar agrupamiento.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 53.3</td>
+<td class="modification-col">
+<div class="modification">
+ En procedimientos por relación de ítems/lotes/tramos, cuantía es <span class="highlight-red">sumatoria de cada ítem, lote o tramo</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Cuantía</span>
+<div class="comment">Establece claridad en cálculo de cuantía agregada para procedimientos con agrupamiento, evitando ambigüedades en clasificación de procedimiento.</div>
+</td>
+</tr>
+<tr data-category="evaluacion">
+<td class="articulo-col">Art. 55.2</td>
+<td class="modification-col">
+<div class="modification">
+ Oficial/comité pueden adicionar, suprimir o ajustar <span class="highlight-red">factores de evaluación facultativos</span> respetando bases estándar. Para jurado, <span class="highlight-red">DEC puede remitir bases a integrantes para que revisen forma de evaluación</span> antes de convocatoria.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Factores</span>
+<div class="comment">Aumenta participación de jurado en revisión de bases. Garantiza consistencia con bases estándar mientras permite flexibilidad en factores adicionales.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 60.5</td>
+<td class="modification-col">
+<div class="modification">
+ DEC se encarga de <span class="highlight-red">recepción de ofertas</span> y su remisión a jurados, <span class="highlight-red">previa revisión de admisión y requisitos de calificación</span>. <span class="highlight-red">DEC se encarga del otorgamiento de buena pro</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Competencias</span>
+<div class="comment">Clarifica roles: DEC maneja recepción, admisión y buena pro; jurado solo evalúa ofertas. Mejora organización y responsabilidades.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 64.3</td>
+<td class="modification-col">
+<div class="modification">
+ En procedimientos con <span class="highlight-red">anuncio de contratación futura publicado 40+ días antes de convocatoria</span>, plazo según bases estándar puede reducirse, <span class="highlight-red">nunca menor a 10 días calendario</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Cronograma</span>
+<div class="comment">Incentiva anuncios anticipados con reducción de plazos de convocatoria. Mejora predictibilidad manteniendo mínimo de 10 días.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 67.1, 67.2, 67.3</td>
+<td class="modification-col">
+<div class="modification">
+ Cuestionamientos al pliego de absolución se presentan en <span class="highlight-red">plazo de 3 días hábiles</span> siguientes a publicación. Registro en Pladicop en <span class="highlight-red">4 días hábiles posteriores</span> al vencimiento. <span class="highlight-red">Pronunciamiento es servicio con costo del TUPA del OECE</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Cuestionamientos</span>
+<div class="comment">Define cronograma de cuestionamientos y se establece que pronunciamiento tiene costo. Fortalece control sobre bases e introduce eficiencia fiscal.</div>
+</td>
+</tr>
+<tr data-category="evaluacion">
+<td class="articulo-col">Art. 69.1 d)</td>
+<td class="modification-col">
+<div class="modification">
+ Promesa de consorcio debe incluir <span class="highlight-red">firmas digitales o legalizadas</span>, con datos de integrantes, representante, domicilio común, obligaciones y <span class="highlight-red">porcentaje de cada integrante</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Consorcios</span>
+<div class="comment">Mejora seguridad jurídica de consorcios al exigir claridad en responsabilidades. Evita ambigüedades sobre distribución de obligaciones.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 70</td>
+<td class="modification-col">
+<div class="modification">
+ Tipos de evaluación: <span class="highlight-red">sin precalificación (etapa única)</span> o <span class="highlight-red">con precalificación (dos subetapas)</span>. Precalificación puede tener diferentes segundas subetapas: final, negociación o diálogo competitivo.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Evaluación</span>
+<div class="comment">Estructura clara de modalidades de evaluación. Facilita elección según procedimiento y mejora predictibilidad para postores.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 72.2</td>
+<td class="modification-col">
+<div class="modification">
+ En procedimientos con jurado, <span class="highlight-red">requisitos de calificación revisados por DEC</span> (puede solicitar opinión a miembros del jurado). En otros casos, <span class="highlight-red">evaluadores revisan requisitos</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Calificación</span>
+<div class="comment">Asigna claramente responsabilidad de revisión de requisitos. DEC tiene rol clave en procedimientos con jurado.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 75.1</td>
+<td class="modification-col">
+<div class="modification">
+ Factor de evaluación económica <span class="highlight-red">no puede superar 40 puntos</span>. Excepción: licitación pública abreviada para bienes homologados: <span class="highlight-red">máximo 70 puntos en factor económico</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Puntaje</span>
+<div class="comment">Limita peso de precio en evaluación general, enfatizando calidad. Permite mayor flexibilidad en compras de bienes estandarizados.</div>
+<div class="example"><strong>Ejemplo:</strong> Licitación de servicios generales: máx. 40 pts económica + 60 pts técnica. Compra de bienes homologados: permite hasta 70 pts económica.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 76.6</td>
+<td class="modification-col">
+<div class="modification">
+ En acta final de negociación se <span class="highlight-red">publican bases integradas definitivas con todas modificaciones adoptadas</span> y se da a conocer <span class="highlight-red">postores aptos para presentar ofertas finales</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Negociación</span>
+<div class="comment">Transparencia en resultados de negociación. Comunicación clara de reglas finales para fase de ofertas definitivas.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 78.1 y 78.2</td>
+<td class="modification-col">
+<div class="modification">
+ Evaluadores pueden solicitar <span class="highlight-red">subsanación de omisiones o correcciones de errores materiales/formales</span> de documentos privados/públicos, <span class="highlight-red">respetando igualdad de trato</span>. Errores en documentos públicos son <span class="highlight-red">subsanables si fueron emitidos antes de presentación de ofertas</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Subsanación</span>
+<div class="comment">Flexibiliza proceso de subsanación limitándola a errores formales/materiales. Agiliza procedimiento sin dejar vulnerables requisitos esenciales.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 82</td>
+<td class="modification-col">
+<div class="modification">
+ Con 2+ ofertas: consentimiento de buena pro <span class="highlight-red">se produce al día siguiente de vencido plazo de apelación</span>, sin recurso presentado. Con 1 oferta: <span class="highlight-red">consentimiento mismo día de notificación</span>, registro <span class="highlight-red">al día siguiente</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Buena Pro</span>
+<div class="comment">Define con claridad momento de consentimiento según cantidad de ofertas. Agiliza procedimiento en casos de oferta única.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 85.1</td>
+<td class="modification-col">
+<div class="modification">
+ Cancelación de procedimiento <span class="highlight-red">previo a adjudicación o adjudicación para innovación</span>. <span class="highlight-red">Cancelación por desaparición de necesidad impide convocar mismo objeto en ejercicio presupuestal</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Cancelación</span>
+<div class="comment">Límite temporal para cancelación previene nueva convocatoria inmediata. Racionaliza uso de recursos presupuestales.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 88.1 e) y f)</td>
+<td class="modification-col">
+<div class="modification">
+ Para perfeccionar contrato ganador de buena pro debe presentar: <span class="highlight-red">e) institución arbitral elegida o propuesta de 3 instituciones</span>; <span class="highlight-red">f) centro de administración de JPRD elegido o propuesta de 3 centros</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Controversias</span>
+<div class="comment">Flexibiliza selección de mecanismos de resolución de disputas. Permite que entidad designe o postulante proponga opciones.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 91.3</td>
+<td class="modification-col">
+<div class="modification">
+ Cuando no se perfecciona contrato por causa imputable a ganador: <span class="highlight-red">pierde automáticamente buena pro</span>. <span class="highlight-red">DEC requiere en 2 días hábiles a segundo lugar</span> que presente requisitos en plazo del numeral 90.1.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Perfeccionamiento</span>
+<div class="comment">Agiliza asignación de buena pro a segundo lugar. Impone plazos concretos para evitar dilaciones.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 92</td>
+<td class="modification-col">
+<div class="modification">
+ Fase de selección culmina cuando: a) <span class="highlight-red">se perfecciona contrato</span>, b) <span class="highlight-red">se cancela procedimiento</span>, c) <span class="highlight-red">no se perfecciona por supuestos art. 86.2 o 91.2</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Culminación</span>
+<div class="comment">Establece hitos claros de cierre de fase de selección. Importante para determinar vigencia de plazos y obligaciones.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 94</td>
+<td class="modification-col">
+<div class="modification">
+ Tabla de procedimientos para servicios/consultorías actualizada. <span class="highlight-red">Concurso público abreviado: para servicios/consultorías según cuantías de Ley de Presupuesto</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Procedimientos</span>
+<div class="comment">Actualiza condiciones de procedimientos competitivos vinculándolas a Ley de Presupuesto anual. Dinamiza operatividad del reglamento.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 96.5</td>
+<td class="modification-col">
+<div class="modification">
+ En subasta inversa: <span class="highlight-red">oficial de compra revisa requisitos de calificación sucesivamente</span> hasta identificar <span class="highlight-red">3 postores que los cumplan</span>. Con 2 postores: solo se revisan esos. <span class="highlight-red">Desierto si 1 postor en evaluación económica o menos de 2 con requisitos</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Subasta Inversa</span>
+<div class="comment">Busca al menos 3 calificados para competencia. Define claramente criterio de procedimiento desierto en modalidad económica simple.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 98.1</td>
+<td class="modification-col">
+<div class="modification">
+ En comparación de precios: <span class="highlight-red">oficial de compra verifica requisitos de calificación</span>, luego <span class="highlight-red">evalúa oferta económica (menor monto)</span>. <span class="highlight-red">Requiere mín. 2 ofertas calificadas; de lo contrario, desierto</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Comparación</span>
+<div class="comment">Simplifica procedimiento económico más simple. Requiere mínimo de competencia para validez de la selección.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 100 b) y c)</td>
+<td class="modification-col">
+<div class="modification">
+ Emergencia: se configura cuando <span class="highlight-red">se cumplen condiciones del artículo 289</span>. Desabastecimiento: <span class="highlight-red">ausencia inminente de bien/servicio por evento extraordinario e imprevisible</span>, <span class="highlight-red">solo por tiempo/cantidad necesaria</span>, seguida de procedimiento competitivo.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">No Competitivos</span>
+<div class="comment">Define con precisión causales de procedimientos no competitivos. Refuerza que desabastecimiento es temporal y limita uso de esta causal.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 101.1 y 101.2</td>
+<td class="modification-col">
+<div class="modification">
+ Procedimientos no competitivos: <span class="highlight-red">no corresponde segmentación</span>. <span class="highlight-red">Fase de selección: invitación a proveedor + presentación de ofertas técnica/económica</span>. <span class="highlight-red">No hay evaluación técnica ni económica; DEC selecciona según causal</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">No Competitivos</span>
+<div class="comment">Simplifica procedimientos no competitivos eliminando fases complejas de evaluación. Acelera contratación en causales justificadas.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 103 b)</td>
+<td class="modification-col">
+<div class="modification">
+ En procedimientos no competitivos: <span class="highlight-red">no procede aprobación de prestaciones adicionales</span> en causales de emergencia/desabastecimiento, <span class="highlight-red">salvo obras en emergencia</span>. Si se requieren adicionales: <span class="highlight-red">nuevo procedimiento no competitivo mientras persista causal</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Prestaciones Adicionales</span>
+<div class="comment">Limita uso de procedimientos no competitivos. Impide abuso extendiendo causales a través de adicionales. Excepciona obras en emergencia por naturaleza.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 105.4</td>
+<td class="modification-col">
+<div class="modification">
+<span class="highlight-red">Servidor/funcionario que suscriba contrato</span> (según normas internas) está facultado para autorizar <span class="highlight-red">modificaciones o resolución</span>, salvo que <span class="highlight-red">estén reservadas a autoridad gestión administrativa o titular</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Facultades</span>
+<div class="comment">Distribuye competencias de forma flexible según estructura interna. Agiliza decisiones en ejecución contractual sin perder control normativo.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 106.1</td>
+<td class="modification-col">
+<div class="modification">
+ Contrato tiene vigencia <span class="highlight-red">desde día siguiente de suscripción</span> o <span class="highlight-red">desde notificación de orden de compra/servicio</span>, según caso.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Vigencia</span>
+<div class="comment">Clarifica punto de inicio de obligaciones contractuales. Importante para cálculo de plazos y responsabilidades.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 107.5</td>
+<td class="modification-col">
+<div class="modification">
+ Previa autorización de autoridad de gestión administrativa, partes pueden acordar <span class="highlight-red">suspensión del plazo de ejecución</span> cuando evento se deba a <span class="highlight-red">causa imputable a entidad contratante</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Suspensión</span>
+<div class="comment">Protege contratista de demoras por responsabilidad de entidad. Permite reajuste de cronogramas de forma colaborativa.</div>
+</td>
+</tr>
+<tr data-category="garantias">
+<td class="articulo-col">Art. 113.1 y 113.3</td>
+<td class="modification-col">
+<div class="modification">
+<span class="highlight-red">Garantía de fiel cumplimiento: 10% del monto original</span> (fideicomiso, carta fianza, seguro o retención). <span class="highlight-red">Garantía por adelantos: 100% del adelanto</span>, solo fideicomiso, carta fianza o seguro, con vigencia mínima 3 meses renovable.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-garantias">Garantías</span>
+<div class="comment">Fija porcentajes estándar de garantías. Permite flexibilidad en mecanismos manteniendo proporcionalidad. Retención solo para fiel cumplimiento.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 122.1 a)</td>
+<td class="modification-col">
+<div class="modification">
+ Procedimiento de resolución: parte requiere al incumplidor con <span class="highlight-red">apercibimiento de resolver</span>. Plazo razonable: <span class="highlight-red">no menor 10% de plazo de ejecución vigente o entregable, ni mayor 15%</span>. Mínimo 3 días si plazo menor a 30 días. <span class="highlight-red">En obras: 15 días si plazo supera 60 días</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Incumplimiento</span>
+<div class="comment">Calibra plazos de subsanación proporcionalmente. Impide procedimientos ultrajantes o insuficientes. Especial consideración para obras complejas.</div>
+<div class="example"><strong>Ejemplo:</strong> Contrato 100 días: plazo 10-15 días. Contrato 30 días: plazo 3 días. Obra 90 días: plazo 15 días.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 123.1</td>
+<td class="modification-col">
+<div class="modification">
+ Si perjudicada es entidad contratante: <span class="highlight-red">ejecuta garantías del contratista</span> conforme art. 118, <span class="highlight-red">sin perjuicio de indemnización por daños debidamente demostrados</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Efectos</span>
+<div class="comment">Permite acumulación de ejecución de garantías e indemnización. Protege patrimonio público ante incumplimientos graves.</div>
+</td>
+</tr>
+<tr data-category="segmentacion">
+<td class="articulo-col">Art. 125.2 y 125.3</td>
+<td class="modification-col">
+<div class="modification">
+ Alta cuantía en bienes/servicios: <span class="highlight-red">cuando supera 10% del monto total de contrataciones en PAC</span>. Alto riesgo: <span class="highlight-red">cuando existe poca competencia: procedimiento desierto en 2 años, promedio ≤3 postores (bienes) o ≤2 (servicios), especialización limitada o nunca contratado</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-segmentacion">Riesgo</span>
+<div class="comment">Combina criterios cuantitativos y cualitativos de riesgo. Identifica contrataciones que requieren mayor diligencia en interacción con mercado.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 136.1</td>
+<td class="modification-col">
+<div class="modification">
+ Reajustes se calculan conforme <span class="highlight-red">último Índice de Precios al Consumidor del INEI</span>, conocido al momento de iniciar trámite de pago, y se recalculan con <span class="highlight-red">mes en que se efectúa pago</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Reajustes</span>
+<div class="comment">Automatiza fórmula de reajustes sobre base de índices oficiales. Reduce discrecionalidad y protege contratista de inflación.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 149.1 a 149.4</td>
+<td class="modification-col">
+<div class="modification">
+ Operación/mantenimiento: contratista notifica valorización en <span class="highlight-red">5 días tras finalizar mes</span>. Entidad tiene <span class="highlight-red">10 días hábiles</span> para otorgar conformidad u observar. <span class="highlight-red">10 días para subsanar observaciones, luego 5 días para aceptar</span>. Culminación: <span class="highlight-red">30 días para solicitar conformidad final</span> + <span class="highlight-red">20 días para verificación</span> + <span class="highlight-red">5-20 días para subsanar</span> + <span class="highlight-red">10 días para conformidad</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Valorización</span>
+<div class="comment">Establece cronograma detallado para valuaciones periódicas. Agiliza pagos manteniendo control de calidad. En reajustes se aplican fórmulas monomicas/polinomicas.</div>
+<div class="example"><strong>Ejemplo:</strong> Contrato mensual: mes 1 termina, contratista pide pago en 5 días. Municipalidad responde en 10 días. Si observaciones, 10 días a subsanar + 5 para aceptar.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 153.2 y 153.3</td>
+<td class="modification-col">
+<div class="modification">
+ Contratación básica en obras: <span class="highlight-red">baja innovación/complejidad, entidad ejecutó similar antes, promedio ≥3 postores últimos 2 años, no es saldo de obra</span>. Si falta alguna: <span class="highlight-red">contratación avanzada</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Clasificación</span>
+<div class="comment">Diferencia estrategias según complejidad. Obras básicas (repetidas, simples) vs avanzadas (innovación, riesgos). Optimiza recursos según dificultad.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 158.1 d), e), f)</td>
+<td class="modification-col">
+<div class="modification">
+ d) <span class="highlight-red">Gestión del diseño y construcción al riesgo: alta complejidad, contratista elabora diseño</span>. e) <span class="highlight-red">Gestión del diseño y construcción de agencia: alta complejidad, contratista gestiona pero no asume responsabilidad de otros</span>. f) <span class="highlight-red">Entrega integrada/alianza: contratistas y entidad comparten riesgos y ganancias, cooperación mutua</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Sistemas Entrega</span>
+<div class="comment">Introduce sistemas modernos de entrega de obras. Flexibiliza asignación de riesgos según modelo contractual. Alianza permite cooperación.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 161.2</td>
+<td class="modification-col">
+<div class="modification">
+ Supervisión de elaboración de expediente técnico y ejecución de obra: <span class="highlight-red">modalidad de pago por tarifas o esquema mixto</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Supervisión</span>
+<div class="comment">Limita modalidades de pago para supervisión. Evita acuerdos ambiguos sobre remuneración de supervisores.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 166.1, 166.2, 166.4</td>
+<td class="modification-col">
+<div class="modification">
+ Diseño y construcción: oferta económica con <span class="highlight-red">monto componente diseño y monto componente ejecución</span>. <span class="highlight-red">Diseño: no menor 90% cuantía, evaluable</span>. <span class="highlight-red">Ejecución: fijo 100%, no evaluable</span>. Consultorías de obras: <span class="highlight-red">oferta no menor 90% cuantía, descalifica si no cumple</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-evaluacion">Ofertas</span>
+<div class="comment">Proporciona piso de precios (90%) para proteger calidad. Separa componentes. Descalificación automática por incumplimiento.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 169.1</td>
+<td class="modification-col">
+<div class="modification">
+ Previo a inicio de ejecución de obra/consultoría: <span class="highlight-red">entidad designa coordinador que gestiona uno o más contratos</span>, <span class="highlight-red">sin ser responsable de opiniones técnicas de supervisión/consultor de obra</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Coordinación</span>
+<div class="comment">Define rol de coordinador separado de supervisor. Mejora organización en ejecutivos múltiples o complejos. Clarifica responsabilidades técnicas.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 170.4</td>
+<td class="modification-col">
+<div class="modification">
+ Cuando contratista elabora expediente técnico: <span class="highlight-red">aplicables plazos para conformidad de entregables de consultorías (144.3 a 144.7)</span>. <span class="highlight-red">Mismos plazos para componente de formulación</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Expediente</span>
+<div class="comment">Homogeniza plazos de revisión de entregables. Evita ambigüedades sobre tiempos de aprobación de expedientes técnicos.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 176.2, 176.3, 176.4, 176.5</td>
+<td class="modification-col">
+<div class="modification">
+ Inicio plazo ejecución consultorías: requiere <span class="highlight-red">b) comunicación identificando supervisor</span>. Entidad tiene <span class="highlight-red">22 días máximo desde suscripción para entregar documentos</span>. Si falla: contratista puede pedir <span class="highlight-red">resarcimiento 0.05% del monto/día (tope 3%) o resolver contrato</span>. En ejecución rápida (fast track): <span class="highlight-red">ejecución inicia con aprobación de entregables parciales</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Plazo</span>
+<div class="comment">Protege contratista imponiendo plazo a entidad para iniciación. Resarcimiento incentiva cumplimiento. Fast track permite compresión de plazos.</div>
+<div class="example"><strong>Ejemplo:</strong> Contrato 1000 UIT: demora entidad 10 días = resarcimiento 0.5% = 5 UIT (hasta 30 UIT máximo).</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 179.3</td>
+<td class="modification-col">
+<div class="modification">
+ Diseño y construcción: <span class="highlight-red">adelanto diseño se computa desde suscripción</span>. <span class="highlight-red">Adelanto ejecución se computa desde aprobación expediente técnico</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Adelantos</span>
+<div class="comment">Sincroniza disponibilidad de adelantos con fase de ejecución. Optimiza flujo de caja en obras en fases separadas.</div>
+</td>
+</tr>
+<tr data-category="ejecucion">
+<td class="articulo-col">Art. 180.1</td>
+<td class="modification-col">
+<div class="modification">
+ Amortización de adelanto: <span class="highlight-red">mediante descuentos proporcionales en cada valorización o pago</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Amortización</span>
+<div class="comment">Método claro y equitativo de descuento. Previene concentración de descuentos al final del contrato.</div>
+</td>
+</tr>
+<tr data-category="garantias">
+<td class="articulo-col">Art. 183.3</td>
+<td class="modification-col">
+<div class="modification">
+ Devolución de garantía al 60% de ejecución: <span class="highlight-red">carta fianza/seguro requiere garantía equivalente del 5%</span>. <span class="highlight-red">Fideicomiso: entidad autoriza disminución 5%</span>. <span class="highlight-red">Retención: entidad devuelve 5%</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-garantias">Reducción</span>
+<div class="comment">Libera capital de contratista a mitad de ejecución. Reduce costo de garantías con seguridad por avance de obra.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 186.4 y 186.5</td>
+<td class="modification-col">
+<div class="modification">
+ Supervisión de obra bajo solo construcción: <span class="highlight-red">puede designarse inspector o equipo de inspectores mientras valorización acumulada no supere monto referencia (186.3)</span>. <span class="highlight-red">Plazo supervisión vinculado a contrato supervisado, hasta recepción mínimo</span>. <span class="highlight-red">Supervisor puede resolver contrato si controversia en liquidación</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Supervisión</span>
+<div class="comment">Flexibiliza estructura de supervisión según avance. Vincula plazos a obra supervisada. Da capacidad a supervisor sobre liquidación.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 187.2 a) y 187.3 b)</td>
+<td class="modification-col">
+<div class="modification">
+ Supervisión formulación/expediente: <span class="highlight-red">revisa plan trabajo en plazo máximo 15 días calendario</span> desde inicio ejecución. Supervisión obra (solo construcción/diseño-construcción): <span class="highlight-red">revisa plan trabajo en plazo máximo 15 días calendario</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Plan Trabajo</span>
+<div class="comment">Establece plazo uniforme de revisión de planes de trabajo. Agiliza aprobación inicial manteniendo control técnico.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 188</td>
+<td class="modification-col">
+<div class="modification">
+ Cuaderno de incidencias: <span class="highlight-red">medio digital en Pladicop</span> para registrar hechos, aprobaciones, consultas. <span class="highlight-red">En expediente: abre día siguiente de perfeccionamiento, cierra con aprobación final</span>. <span class="highlight-red">En ejecución: abre en entrega terreno, cierra en recepción</span>. <span class="highlight-red">Registran: jefe formulación + supervisor (expediente); residente + supervisor (ejecución)</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Registro</span>
+<div class="comment">Digitaliza registro de incidencias. Traceable y transparente. Sustenta modificaciones contractuales. Clarifica quién registra qué.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 189.3</td>
+<td class="modification-col">
+<div class="modification">
+ Sustitución personal clave: <span class="highlight-red">solicitud 10 días hábiles antes de sustitución</span>. Si entidad no se pronuncia: <span class="highlight-red">se considera autorizada</span>. <span class="highlight-red">Penalidad si es segunda sustitución del mismo integrante</span>. Excepción: caso fortuito/fuerza mayor/hecho sobreviniente.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Personal</span>
+<div class="comment">Protege calidad manteniendo personal clave. Plazo razonable para autorizaciones. Penalidad desalienta cambios frecuentes. Excepción por causas externas.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 190.1</td>
+<td class="modification-col">
+<div class="modification">
+ Consultas en cuaderno de incidencias: <span class="highlight-red">supervisor puede responder directamente si no conlleva modificación de expediente técnico</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Consultas</span>
+<div class="comment">Agiliza absueltas de consultas simples. Diferencia consultas técnicas de modificaciones contractuales.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 191.3</td>
+<td class="modification-col">
+<div class="modification">
+ Intensificación de programa de ejecución: <span class="highlight-red">partes acuerdan por adenda</span>, <span class="highlight-red">disminución de plazo y variación de monto</span>. <span class="highlight-red">Requiere autorización previa de gestión administrativa y certificación presupuestaria</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Cronograma</span>
+<div class="comment">Permite compresión de cronogramas con ajuste de costos. Requiere aprobación formal. Protege presupuesto municipal.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 193.1</td>
+<td class="modification-col">
+<div class="modification">
+ Prestaciones adicionales en consultorías de obra: <span class="highlight-red">hasta 25% del monto original</span>, <span class="highlight-red">si indispensable para finalidad pública</span>, <span class="highlight-red">con rigor técnico y previsión presupuestaria</span>. Procedimiento: <span class="highlight-red">anotación en cuaderno + comunicación de estructura de costos (5 días) + informe técnico supervisor</span>.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-ejecucion">Prestaciones</span>
+<div class="comment">Limita adicionales a 25%. Exige justificación técnica y presupuestaria. Procedimiento claro en cuaderno de incidencias.</div>
+<div class="example"><strong>Ejemplo:</strong> Consultoría 100 UIT: máx. 25 UIT adicionales, solo si rigor técnico lo justifica.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 207</td>
+<td class="modification-col">
+<div class="modification">
+<span class="highlight-red">Artículo íntegro modificado</span> - relativo a garantías y adelantos en contratos menores.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Contratos Menores</span>
+<div class="comment">Se actualiza régimen de garantías en contratos menores. Se hace más flexible y proporcional.</div>
+</td>
+</tr>
+<tr data-category="general">
+<td class="articulo-col">Art. 211</td>
+<td class="modification-col">
+<div class="modification">
+<span class="highlight-red">Artículo íntegro modificado</span> - relativo a aprovisionamiento estratégico de bienes.
+ </div>
+</td>
+<td class="comment-col">
+<span class="badge badge-procedimiento">Aprovisionamiento</span>
+<div class="comment">Se actualiza régimen de compra estratégica. Introduce flexibilidad en procedimientos de aprovisionamiento.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="stats">
+<div class="stat-card">
+<div class="stat-number">96</div>
+<div class="stat-label">Artículos Modificados</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">90+</div>
+<div class="stat-label">Cambios Específicos</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">5</div>
+<div class="stat-label">Áreas Principales</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">08/01/2026</div>
+<div class="stat-label">Fecha de Publicación</div>
+</div>
+</div>
+<div class="legend">
+<h4>Categorías de Modificaciones</h4>
+<div class="legend-items">
+<div class="legend-item">
+<div class="legend-color badge-segmentacion" style="background: #e3f2fd;"></div>
+<span><strong>Segmentación:</strong> Clasificación y planificación de contrataciones</span>
+</div>
+<div class="legend-item">
+<div class="legend-color badge-requerimiento" style="background: #f3e5f5;"></div>
+<span><strong>Requerimiento:</strong> Definición y modificación de especificaciones</span>
+</div>
+<div class="legend-item">
+<div class="legend-color badge-evaluacion" style="background: #fff3e0;"></div>
+<span><strong>Evaluación:</strong> Criterios y métodos de evaluación de ofertas</span>
+</div>
+<div class="legend-item">
+<div class="legend-color badge-ejecucion" style="background: #e8f5e9;"></div>
+<span><strong>Ejecución:</strong> Aspectos operativos del contrato</span>
+</div>
+<div class="legend-item">
+<div class="legend-color badge-procedimiento" style="background: #fce4ec;"></div>
+<span><strong>Procedimiento:</strong> Trámites y cronogramas procesales</span>
+</div>
+<div class="legend-item">
+<div class="legend-color badge-garantias" style="background: #fff9c4;"></div>
+<span><strong>Garantías:</strong> Garantías contractuales y adelantos</span>
+</div>
+</div>
+</div>
+<div class="footer">
+<p><strong>Documento de referencia:</strong> Decreto Supremo Nº 001-2026-EF | El Peruano, 08 de enero de 2026</p>
+<p><strong>Elaborado por:</strong> Candela Jara Abogados &amp; Asociados</p>
+<p>Este cuadro comparativo está diseñado para facilitar el análisis ejecutivo de las modificaciones reglamentarias.</p>
+</div>
+</div>
+<script>
+        // Search and filter functionality
+        const searchInput = document.getElementById('searchInput');
+        const dataTable = document.getElementById('dataTable');
+        const rows = dataTable.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            Array.from(rows).forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        });
+        
+        function filterTable(category) {
+            // Update active button
+            document.querySelectorAll('.filter-buttons .btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter rows
+            Array.from(rows).forEach(row => {
+                if (category === 'all' || row.dataset.category === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
